@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT node_description (target)*>
+<!ATTLIST target id CDATA #REQUIRED>
+<!ELEMENT target (graphics, power_plug_type, test)>
+<!ELEMENT graphics (#PCDATA)*>
+<!ELEMENT power_plug_type (#PCDATA)*>
+<!ELEMENT test (#PCDATA)*>

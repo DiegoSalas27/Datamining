@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE node_description SYSTEM "sample.dtd">
+<node_description>
+    <target id="windows 32bit">
+        <graphics>nvidia_970</graphics>
+        <power_plug_type>energenie_eu</power_plug_type>
+        <test>unit test</test>
+   </target>
+   <target id="windows 64bit">
+       <graphics>nvidia_870</graphics>
+       <power_plug_type>energenie_eu</power_plug_type>
+       <test>performance test</test>
+   </target>
+</node_description>
