@@ -1,4 +1,4 @@
-setwd("C:/Users/operador/Downloads/ufcdata")
+setwd("D:/Users/DOMINIC/Desktop/UPC VIII/Administracion de informacion/Semana 10/ufcdata")
 getwd()
 dataset <- read.csv("data.csv", fileEncoding = "latin1")
 View(dataset)
@@ -29,23 +29,89 @@ data = normalize(data, indices)
 
 View(head(data,K))
 
-nrow(data)
-wa = seq(1, nrow(data))  
-we = seq(1, 3)
-we
-sum(we)
-data$wa = wa
-View(data)
+  
 
 ## Weighted average
 
-weigthedAverage = function(data, weight, index, ite) {
+weigthedAverage = function(data, weight, index) {
   df = data
-  wa = seq(1, nrow(df))  
-  for(i in ite) {
-     wa = (wa + (weight[index] * df[,index])) / sum(weight) 
+  wa = rep(0, nrow(data))
+  for(i in 1:3) {
+    wa = wa + (weight[i] * df[,index[i]]) / sum(weight)
   }
-  return(wa) 
+  df$wa = wa
+  return(df) 
 }
 
-weigthedAverage(data, c(1,2,1), indices, 3)
+weight = c(1,2,1)
+
+View(weigthedAverage(data, weight, indices))
+
+
+## Maximin
+
+maximin = function(data, index) {
+  df = data
+  mn = rep(0, nrow(data))
+  for(i in 1:nrow(data)) {
+    mn[i] = df[,index[1]][i]
+    for(j in 2:3) {
+      if(mn[i] > df[,index[j]][i]) {
+        mn[i] = df[,index[j]][i]
+      }
+    }
+  }
+  df$minVal = mn
+  return(df)
+}
+
+View(maximin(data, indices))
+
+
+## Minimax
+
+minimax = function(data, index) {
+  df = data
+  mn = rep(0, nrow(data))
+  for(i in 1:nrow(data)) {
+    mn[i] = df[,index[1]][i]
+    for(j in 2:3) {
+      if(mn[i] < df[,index[j]][i]) {
+        mn[i] = df[,index[j]][i]
+      }
+    }
+  }
+  df$maxVal = mn
+  return(df)
+}
+
+View(minimax(data, indices))
+
+
+## Leximin
+
+leximin = function(data, indices) {
+  df = data
+  lex = t(data.frame(rep(0, nrow(data)), rep(0, nrow(data)), rep(0, nrow(data))))
+  a = c(1,2,3)
+  for(i in 1:nrow(data)) {
+    for(j in 1:3) {
+      a[j] = df[,indices[j]][i]
+    }
+    a = sort(a, decreasing = FALSE)
+    for(j in 1:3) {
+      lex[j,i] = a[j]
+    }
+  }
+  for(j in 1:3) {
+    str=sprintf("hi%d",j)  
+    df[str] = lex[j,]
+  }
+  return(df)
+}
+
+View(leximin(data, indices))
+
+
+
+
