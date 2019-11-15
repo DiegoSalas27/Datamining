@@ -1,0 +1,6 @@
+#Para ejecutar esto se debe ejecutar el comando: pip install -r requirements.txt
+plotly
+pandas
+seaborn
+chart_studio
+sklearn
